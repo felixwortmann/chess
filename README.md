@@ -1,2 +1,2 @@
 # chess
-Chess High End Strategy System
+**C**hess **H**igh **E**nd **S**trategy **S**ystem
