@@ -3,41 +3,8 @@ import random
 import math
 import copy
 import time
-from chess_core import minimax
-
-
-def print_board_state(board):
-    print(board)
-    print("-----------------------------------")
-    print("white_turn:              ", board.turn)
-    print("is_game_over:            ", board.is_game_over())
-    print("is_variant_end:          ", board.is_variant_end())
-    print("is_stalemate::           ", board.is_stalemate())
-    print("is_variant_win:          ", board.is_variant_win())
-    print("is_variant_loss:         ", board.is_variant_loss())
-    print("is_variant_draw:         ", board.is_variant_draw())
-    print("is_seventyfive_moves:    ", board.is_seventyfive_moves())
-    print("result:                  ", board.result())
-
-
-def return_result(board, print_state=True):
-    if print_state:
-        print_board_state(board)
-    if board.result() == "1-0":
-        return 1
-    elif board.result() == "0-1":
-        return -1
-    elif board.result() == "*":
-        assert False  # Should not be called if this is the case
-    else:
-        return 0
-
-
-def minimax_for_color(board, color, depth):
-    # start = time.time()
-    val = minimax(copy.deepcopy(board), depth, -math.inf, +math.inf, True, [])
-    # print("Seconds for move:", time.time()-start)
-    return val
+from chess_core import minimax, minimax_for_color
+from chess_utils import board_is_in_end_state, return_result, print_board_state
 
 
 def play_one_game_vs_self_test(board, depth_white, depth_black):
@@ -52,7 +19,7 @@ def play_one_game_vs_self_test(board, depth_white, depth_black):
         # print("----------------------------")
         board.push(white_moves[0])
         # print(board)
-        if not board.result() == "*":
+        if board_is_in_end_state(board):
             return return_result(board)
         # Black
         value, black_moves = minimax_for_color(board, False, depth_black)
@@ -61,7 +28,7 @@ def play_one_game_vs_self_test(board, depth_white, depth_black):
         board.push(black_moves[0])
         # print("----------------------------------------------------------------")
         # print(board)
-        if not board.result() == "*":
+        if board_is_in_end_state(board):
             return return_result(board)
 
 
@@ -78,7 +45,8 @@ def play_one_game_vs_random_test(board, ki_color, ki_depth):
             board.push(mov[0])
             # print(board)
             # print("----------------------------------------------------------------")
-            if not board.result() == "*":
+            print_board_state(board)
+            if board_is_in_end_state(board):
                 return return_result(board)
         # KI
         value, moves = minimax_for_color(board, ki_color, ki_depth)
@@ -86,8 +54,9 @@ def play_one_game_vs_random_test(board, ki_color, ki_depth):
         #       board.turn, moves, "value:", value)
         # print(board)
         # print("----------------------------")
+        print_board_state(board)
         board.push(moves[0])
-        if not board.result() == "*":
+        if board_is_in_end_state(board):
             return return_result(board)
 
 
@@ -97,11 +66,11 @@ white_wins = 0
 black_wins = 0
 draw_games = 0
 average_time_for_game = 0
-for i in range(0, 10):
+for i in range(0, 2):
     game_start = time.time()
     board = chess.Board()
     board.root()
-    # result = play_one_game_vs_self_test(board, 1, 3)
+    # result = play_one_game_vs_self_test(board, 1, 1)
     result = play_one_game_vs_random_test(board, True, 2)
     if result > 0:
         white_wins += 1
