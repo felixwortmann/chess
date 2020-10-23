@@ -1,3 +1,4 @@
 python-chess
 jupyter
 numpy
+unittest
