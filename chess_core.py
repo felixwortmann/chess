@@ -18,7 +18,7 @@ def static_eval(chess_board, maximizing_color):
     return value
 
 
-def minimax(chess_board, depth, alpha, beta, maximizing_player, minimizing_color, moves):
+def minimax(chess_board, depth, alpha, beta, maximizing_player, minimizing_color, moves, verbose=False):
     chess_board = copy.deepcopy(chess_board)
     if chess_board.result() == "1-0":
         return ((math.inf, moves) if maximizing_player else (-math.inf, moves))
@@ -35,11 +35,13 @@ def minimax(chess_board, depth, alpha, beta, maximizing_player, minimizing_color
         max_move = None
         for move in chess_board.legal_moves:
             chess_board.push(move)
-            print("with move:", move)
-            print(chess_board, "\n")
             value, _ = minimax(chess_board,
-                               depth - 1, alpha, beta, False, not minimizing_color, moves + [move])
-            print("value:", value)
+                               depth - 1, alpha, beta, not maximizing_player, minimizing_color, moves + [move], verbose)
+            if verbose:
+                print("maximizing_player:", maximizing_player)
+                print("move,value", move, value)
+                print(chess_board)
+
             chess_board.pop()
             max_val = max(max_val, value)
             if max_val == value:
@@ -56,7 +58,11 @@ def minimax(chess_board, depth, alpha, beta, maximizing_player, minimizing_color
         for move in chess_board.legal_moves:
             chess_board.push(move)
             value, _ = minimax(chess_board, depth - 1, alpha,
-                               beta, True, not minimizing_color, moves + [move])
+                               beta, not maximizing_player, not minimizing_color, moves + [move], verbose)
+            if verbose:
+                print("maximizing_player:", maximizing_player)
+                print("move,value", move, value)
+                print(chess_board)
             chess_board.pop()
             min_val = min(min_val, value)
             if min_val == value:
@@ -69,5 +75,5 @@ def minimax(chess_board, depth, alpha, beta, maximizing_player, minimizing_color
         return min_val, moves + [min_move]
 
 
-def minimax_for_color(board, color, depth):
-    return minimax(copy.deepcopy(board), depth, -math.inf, +math.inf, True, not color, [])
+def minimax_for_color(board, color, depth, verbose=False):
+    return minimax(copy.deepcopy(board), depth, -math.inf, +math.inf, True, not color, [], verbose)

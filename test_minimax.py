@@ -1,4 +1,5 @@
 import chess
+import chess.engine
 import random
 import math
 import copy
@@ -11,6 +12,8 @@ def play_one_game_vs_self_test(board, depth_white, depth_black):
     counter = 0
     while True:
         counter += 1
+        print(counter)
+        print_board_state(board)
         # White
         value, white_moves = minimax_for_color(board, True, depth_white)
         # print("nr:", counter, "white turn:",
@@ -35,14 +38,16 @@ def play_one_game_vs_self_test(board, depth_white, depth_black):
 def play_one_game_vs_random_test(board, ki_color, ki_depth):
     # Does not work - white always wins
     counter = 0
+    engine = chess.engine.SimpleEngine.popen_uci("stockfish")
     while True:
         counter += 1
         if not (counter == 1 and ki_color):  # skip if ki is white
             # Random
             mov = list(board.legal_moves)
             # print("white turn:", board.turn, "random:", mov[0])
-            random.shuffle(mov)
-            board.push(mov[0])
+            result = engine.play(board, limit=chess.engine.Limit(depth=0,nodes=0))
+            assert result.move in board.legal_moves
+            board.push(result.move)
             # print(board)
             # print("----------------------------------------------------------------")
             print_board_state(board)
@@ -66,12 +71,12 @@ white_wins = 0
 black_wins = 0
 draw_games = 0
 average_time_for_game = 0
-for i in range(0, 2):
+for i in range(0, 3):
     game_start = time.time()
     board = chess.Board()
     board.root()
-    # result = play_one_game_vs_self_test(board, 1, 1)
-    result = play_one_game_vs_random_test(board, True, 2)
+    # result = play_one_game_vs_self_test(board, 3, 1)
+    result = play_one_game_vs_random_test(board, False, 1)
     if result > 0:
         white_wins += 1
     elif result < 0:
