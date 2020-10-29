@@ -35,13 +35,13 @@ def play_one_game_vs_self_test(board, depth_white, depth_black):
             return return_result(board)
 
 
-def play_one_game_vs_random_test(board, ki_color, ki_depth):
+def play_one_game_vs_random_test(board, ai_color, ai_depth):
     # Does not work - white always wins
     counter = 0
     engine = chess.engine.SimpleEngine.popen_uci("stockfish")
     while True:
         counter += 1
-        if not (counter == 1 and ki_color):  # skip if ki is white
+        if not (counter == 1 and ai_color):  # skip if ki is white
             # Random
             mov = list(board.legal_moves)
             # print("white turn:", board.turn, "random:", mov[0])
@@ -54,7 +54,7 @@ def play_one_game_vs_random_test(board, ki_color, ki_depth):
             if board_is_in_end_state(board):
                 return return_result(board)
         # KI
-        value, moves = minimax_for_color(board, ki_color, ki_depth)
+        value, moves = minimax_for_color(board, ai_color, ai_depth)
         # print("nr:", counter, "white turn:",
         #       board.turn, moves, "value:", value)
         # print(board)
