@@ -1,13 +1,6 @@
 ## Todos
-- input zum spielen verbessern - mit input statement
-- unit tests (matt in 3 zügen z.B.)
-- transpositionstabelle
+- display fixen
+- unit tests (matt in 1-2 zug z.B.)
 - simple evaluation function
+- transpositionstabelle
 - polyglot anfangslibrary
-
-```python
-fromIPython.core.display import HTML
-with open('style.css','r') as file:
-	css = file.read()
-HTML(css)
-```
