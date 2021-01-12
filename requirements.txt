@@ -1,4 +1,4 @@
-python-chess
+python-chess >= 1.999
 jupyter
 numpy
 unittest
