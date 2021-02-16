@@ -3,7 +3,7 @@ import chess
 from flask import Flask, request, jsonify
 import nbformat
 from nbconvert import PythonExporter
-
+import time
 
 def execute_chess_core(notebook_path, module_path):
 
@@ -29,8 +29,11 @@ def post_something():
     print(param)
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
+        start_time = time.time()
+        move = minimax_input(chess.Board(param), depth if depth else 4)[1].uci()
         return jsonify({
-            "move": minimax_input(chess.Board(param), depth if depth else 4)[1].uci()
+            "move": move,
+            "calculationTimeInSeconds": time.time() - start_time
         })
     else:
         return jsonify({
