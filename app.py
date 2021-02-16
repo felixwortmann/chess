@@ -4,6 +4,7 @@ import chess
 from flask import Flask, request, jsonify
 app = Flask(__name__)
 
+
 @app.route('/nextmove/', methods=['POST'])
 def post_something():
     param = request.form.get('fen')
@@ -12,7 +13,7 @@ def post_something():
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
         return jsonify({
-            "move": chess_core.minimax_input(chess.Board(param),depth if depth else 4)
+            "move": chess_core.minimax_input(chess.Board(param), depth if depth else 4)[1].uci()
         })
     else:
         return jsonify({
@@ -20,9 +21,12 @@ def post_something():
         })
 
 # A welcome message to test our server
-@app.route('/')
+
+
+@app.route('/', methods=['POST'])
 def index():
     return "<h1>Welcome to our server!!</h1>\nYou can get the next move at /nextmove"
+
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
