@@ -7,12 +7,11 @@ app = Flask(__name__)
 @app.route('/nextmove/', methods=['POST'])
 def post_something():
     param = request.form.get('fen')
-    depth = request.form.get('depth')
     print(param)
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
         return jsonify({
-            "move": chess_core.minimax_input(chess.Board(param),depth if depth else 4)
+            "move": chess_core.minimax_input(chess.Board(param),4)
         })
     else:
         return jsonify({
