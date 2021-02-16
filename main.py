@@ -4,7 +4,6 @@ import chess
 from flask import Flask, request, jsonify
 app = Flask(__name__)
 
-
 @app.route('/nextmove/', methods=['POST'])
 def post_something():
     param = request.form.get('fen')

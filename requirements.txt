@@ -2,3 +2,4 @@ python-chess==1.999
 jupyter
 numpy
 flask
+gunicorn
