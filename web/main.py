@@ -1,8 +1,26 @@
-# app.py
-import chess_core
+import os
 import chess
 from flask import Flask, request, jsonify
+import nbformat
+from nbconvert import PythonExporter
+
+
+def execute_chess_core(notebook_path, module_path):
+
+    with open(module_path, 'w+', encoding="utf8") as fh:
+        fh.writelines(source)
+
+
+with open(os.path.dirname(__file__) +
+          "/../chess_core.ipynb") as fh:
+    nb = nbformat.reads(fh.read(), nbformat.NO_CONVERT)
+
+exporter = PythonExporter()
+source, meta = exporter.from_notebook_node(nb)
+exec(source)
+
 app = Flask(__name__)
+
 
 @app.route('/nextmove/', methods=['POST'])
 def post_something():
@@ -12,7 +30,7 @@ def post_something():
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
         return jsonify({
-            "move": chess_core.minimax_input(chess.Board(param), depth if depth else 4)[1].uci()
+            "move": minimax_input(chess.Board(param), depth if depth else 4)[1].uci()
         })
     else:
         return jsonify({
