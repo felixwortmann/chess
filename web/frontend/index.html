@@ -1,0 +1,49 @@
+<html>
+    <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="chessboardjs-1/js/chessboard-1.0.0.js"></script>
+    <script src="fetcher.js"></script>
+    </head>
+        <link rel="stylesheet" href="chessboardjs-1/css/chessboard-1.0.0.min.css">
+    <body>
+      <div id="board" style="width: 400px"></div>
+      <input type="text" id="input_move"/>
+      <button id="moveBtn">Los!</button>
+      <p id="loading_text"></p>
+    </body>
+    <!-- <script src="jquery.min.js"></script> -->
+    
+    <script type="text/javascript">
+      var turn = true;
+      var board = Chessboard('board', {
+        draggable: true,
+        dropOffBoard: 'trash',
+        // sparePieces: true
+        position: 'start'//'4rkr1/1p1Rn1pp/p3pQ2/5p2/8/8/PPq2PPP/3R2K1 b - - 1 1'
+      })
+
+      function turnChar(){
+        return turn ? " w KQkq - 0 1" : " b KQkq - 0 1";
+      }
+
+      function performAiMove(){
+        let currentFen = board.fen() + turnChar();
+      getNewFEN(currentFen,(data)=>{
+        turn = !turn
+        board.position(data.updatedFEN)
+        console.log("time:" + data.calculationTimeInSeconds)
+     });
+      }
+
+      
+    $('#moveBtn').on('click', function () {
+      board.move($('#input_move').val())
+      $('loading_text').text("Lädt...")
+      turn = !turn
+      performAiMove()
+      $('loading_text').text("")
+  })
+  
+      
+    </script>
+</html>
