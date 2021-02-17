@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 import nbformat
 from nbconvert import PythonExporter
 import time
+from flask_cors import CORS, cross_origin
 
 def execute_chess_core(notebook_path, module_path):
 
@@ -20,9 +21,12 @@ source, meta = exporter.from_notebook_node(nb)
 exec(source)
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/nextmove/', methods=['POST'])
+@cross_origin()
 def post_something():
     param = request.form.get('fen')
     depth = request.form.get('depth')
@@ -43,7 +47,8 @@ def post_something():
 # A welcome message to test our server
 
 
-@app.route('/', methods=['POST'])
+@app.route('/',methods=["POST"])
+@cross_origin()
 def index():
     return "<h1>Welcome to our server!!</h1>\nYou can get the next move at /nextmove"
 
