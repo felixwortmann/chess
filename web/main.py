@@ -34,9 +34,12 @@ def post_something():
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
         start_time = time.time()
-        move = minimax_input(chess.Board(param), depth if depth else 4)[1].uci()
+        board = chess.Board(param)
+        move = minimax_input(board, depth if depth else 4)[1]
+        board.push(move)
         return jsonify({
-            "move": move,
+            "move": move.uci(),
+            "updatedFEN": board.fen(),
             "calculationTimeInSeconds": time.time() - start_time
         })
     else:
