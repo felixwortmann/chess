@@ -6,6 +6,7 @@ from nbconvert import PythonExporter
 import time
 from flask_cors import CORS, cross_origin
 
+
 def execute_chess_core(notebook_path, module_path):
 
     with open(module_path, 'w+', encoding="utf8") as fh:
@@ -35,12 +36,13 @@ def post_something():
     if param:
         start_time = time.time()
         board = chess.Board(param)
-        move = minimax_input(board, depth if depth else 4)[1]
+        value, move = minimax_input(board, depth if depth else 4)
         board.push(move)
         return jsonify({
             "move": move.uci(),
             "updatedFEN": board.fen(),
-            "calculationTimeInSeconds": time.time() - start_time
+            "calculationTimeInSeconds": time.time() - start_time,
+            "value": value
         })
     else:
         return jsonify({
@@ -50,7 +52,7 @@ def post_something():
 # A welcome message to test our server
 
 
-@app.route('/',methods=["POST"])
+@app.route('/', methods=["POST"])
 @cross_origin()
 def index():
     return "<h1>Welcome to our server!!</h1>\nYou can get the next move at /nextmove"
