@@ -30,13 +30,15 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def post_something():
     param = request.form.get('fen')
-    depth = request.form.get('depth')
+    depth = 4 # default to 4
+    if request.form.get('depth'):
+        depth = int(request.form.get('depth'))
     print(param)
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
         start_time = time.time()
         board = chess.Board(param)
-        value, move = minimax_input(board, depth if depth else 4)
+        value, move = minimax_input(board, depth)
         board.push(move)
         return jsonify({
             "move": move.uci(),
