@@ -20,6 +20,7 @@ with open(os.path.dirname(__file__) +
 exporter = PythonExporter()
 source, meta = exporter.from_notebook_node(nb)
 exec(source)
+POLYGLOT_PATH = os.path.dirname(__file__) + "/../data/polyglot/performance.bin"
 
 app = Flask(__name__)
 CORS(app)
@@ -30,7 +31,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def post_something():
     param = request.form.get('fen')
-    depth = 4 # default to 4
+    depth = 4  # default to 4
     if request.form.get('depth'):
         depth = int(request.form.get('depth'))
     print(param)
