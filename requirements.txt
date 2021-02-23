@@ -1,3 +1,6 @@
-python-chess >= 1.999
+python-chess==1.999
 jupyter
 numpy
+flask
+gunicorn
+flask-cors
