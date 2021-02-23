@@ -13,14 +13,15 @@ def execute_chess_core(notebook_path, module_path):
         fh.writelines(source)
 
 
-with open(os.path.dirname(__file__) +
-          "/../chess_core.ipynb") as fh:
+with open(os.path.join(os.path.dirname(__file__),
+                       "..", "chess_core.ipynb")) as fh:
     nb = nbformat.reads(fh.read(), nbformat.NO_CONVERT)
 
 exporter = PythonExporter()
 source, meta = exporter.from_notebook_node(nb)
 exec(source)
-POLYGLOT_PATH = os.path.dirname(__file__) + "/../data/polyglot/performance.bin"
+POLYGLOT_PATH = os.path.join(os.path.dirname(
+    __file__), "..", "data/polyglot/performance.bin")
 
 app = Flask(__name__)
 CORS(app)
