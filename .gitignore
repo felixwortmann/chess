@@ -130,4 +130,7 @@ dmypy.json
 
 # PDF
 *.pdf
+
+# Custom
 .DS_Store
+.logs/
