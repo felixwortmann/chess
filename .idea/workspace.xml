@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9ea20efd-b94b-42e1-aac9-0155d4f0853e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess_core.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/chess_core.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit_tests.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/unit_tests.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +32,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1t5K2EhVlLcCEPqgq8Jo9wR3CUE" />
   <component name="ProjectViewState">
@@ -90,7 +89,7 @@
       <workItem from="1622118858778" duration="75000" />
       <workItem from="1622118948277" duration="145000" />
       <workItem from="1622119108623" duration="7000" />
-      <workItem from="1622119216058" duration="731000" />
+      <workItem from="1622119216058" duration="3832000" />
     </task>
     <servers />
   </component>
