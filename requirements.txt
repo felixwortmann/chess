@@ -1,6 +1,9 @@
 python-chess==1.999
 jupyter
 numpy
-flask
+flask~=1.1.2
 gunicorn
 flask-cors
+chess~=1.4.0
+nbformat~=5.1.2
+nbconvert~=6.0.7
