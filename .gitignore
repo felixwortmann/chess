@@ -134,3 +134,7 @@ dmypy.json
 # Custom
 .DS_Store
 .logs/
+
+# idea
+.idea/
+chess.iml
