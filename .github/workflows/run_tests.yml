@@ -17,6 +17,7 @@ jobs:
       with:
         notebook: "unit_tests.ipynb"
         isReport: False
+        params: ".github/params.json"
         poll: True
     - uses: actions/upload-artifact@master
       if: always()
