@@ -1,0 +1,9 @@
+name: Run Tests
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt install python
+      - run: pip install -r requirements.txt
+      - run: runipy unit_tests.ipynb
