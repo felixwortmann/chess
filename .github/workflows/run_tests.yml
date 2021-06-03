@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,3 +21,5 @@ jobs:
           pip install -r requirements.txt
       - name: Run Tests
         run: runipy unit_tests.ipynb
+      - name: Run Benchmark
+        run: runipy benchmark.ipynb
