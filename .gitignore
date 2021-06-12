@@ -134,3 +134,4 @@ dmypy.json
 
 .idea
 chess.iml
+.logs
